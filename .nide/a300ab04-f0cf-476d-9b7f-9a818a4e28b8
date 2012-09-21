@@ -1,0 +1,10 @@
+#   CI Server Node Js
+
+# Author: jherlab@gmail.com
+
+# Date: 21/09/12
+
+
+1. Install nodemon to reload the execution automatically. sudo npm install -g nodemon
+2. Install express in the project. npm ins
+

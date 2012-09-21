@@ -1,8 +1,10 @@
 {
-    "name": "CIServer",
-    "description": "CI Server with Node JS",
-    "version": "0.1.0",
-    "author": "jherlab",
-    "dependencies": {},
-    "devDependencies": {}
+  "name": "CIServer",
+  "description": "CI Server with Node JS",
+  "version": "0.1.0",
+  "author": "jherlab",
+  "dependencies": {
+    "express": "~3.0.0rc4"
+  },
+  "devDependencies": {}
 }
