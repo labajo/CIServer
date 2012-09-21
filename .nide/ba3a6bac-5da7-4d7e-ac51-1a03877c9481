@@ -8,7 +8,7 @@ app.get('/', function(req, res){
   res.send('hello no world');
 });
 
-// Cigame json endpoint
+// Cigame j
 app.get('/jenkins/cigame', function(req, res){
     res.send('hello cigame');
 });
