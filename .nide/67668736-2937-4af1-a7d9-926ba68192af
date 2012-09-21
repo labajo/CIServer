@@ -1,0 +1,8 @@
+{
+    "name": "CIServer",
+    "description": "CI Server with Node JS",
+    "version": "0.1.0",
+    "author": "jherlab",
+    "dependencies": {},
+    "devDependencies": {}
+}
