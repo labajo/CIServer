@@ -11,9 +11,10 @@ app.get('/', function(req, res){
 // Cigame json endpoint
 //TODO: Download the jenkins cigame web. Web Scraping and present information in json.
 app.get('/jenkins/cigame', function(req, res){
+    res.statusCode = 201;
     res.setHeader('Location', 'http://localhost:8484');
     res.send('hello cigame');
-    res.writeHead(201);
+    
 });
 
 app.listen(8484);
