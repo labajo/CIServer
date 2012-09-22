@@ -18,6 +18,9 @@ nconf.defaults({
 var winston = require('winston');
 
 
+//read local files
+var fs = require('fs');
+
 
 // local dependencies
 var cigameService = require('./services/cigameservice.js');
@@ -42,6 +45,17 @@ app.get('/jenkins/cigame', function(req, res){
     res.setHeader('Location', 'http://localhost:8484');
     res.send('hello cigame');
     
+});
+
+
+//swagger documentations.
+app.get('/api/cigame.json', function(req, res){
+    fs.readFile('./doc/cigame.json', 'utf8', function (err,data) {
+      if (err) {
+        return console.log(err);
+      }
+      res.send(200,data);
+    });
 });
 
 app.listen(nconf.get('httpPort'));

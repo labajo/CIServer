@@ -14,8 +14,6 @@ function setLoggingEngine(logging){
     winston = logging;
 }
 
-
-
 function getCIGameInfo(name, res){
     winston.info('EA getCiGameInfo Method. Name: ' + name);
     scraper(nconf.get('jenkinsUrl'), function(err, $) {
