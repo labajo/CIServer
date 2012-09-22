@@ -1,5 +1,5 @@
 {
     "httpPort": 8484,
-    "jenkinsUrl": "http://jenkinsServer",
+    "jenkinsUrl": "http://ci-wallet/jenkins/cigame/",
     "sonarUrl": "http://sonarServer"
 }

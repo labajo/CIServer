@@ -16,4 +16,4 @@ Develop Steps:
 3. Install nconf to have json configuration files.
 4. Install an asyn logging library (winston).
 5. Create a system with three layers.(Main layer(app.js), Services, Ext Agents).
-
+6. Add scraper to download page contents and analyze it.
