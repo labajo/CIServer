@@ -22,11 +22,10 @@ function setLoggingEngine(logging){
 
 
 
-function getCIGameInfo(name){
+function getCIGameInfo(name, res){
     winston.info('getCIGameInfo Method. Name: ' + name);
-    var saludo = jenkinsEA.getCIGameInfo(name);
-    return saludo;
-    
+    jenkinsEA.getCIGameInfo(name, res);
+    //return result;
 }
 
 module.exports.setConfigEngine = setConfigEngine;

@@ -28,9 +28,11 @@ cigameService.setLoggingEngine(winston);
 //Main endpoint
 app.get('/:name', function(req, res){
   var name = req.params.name;
+  if(name=='favicon.ico'){
+      return;
+  }
   winston.info('Main endpoind. Name: ' + name);
-  var resp = cigameService.getCIGameInfo(name, nconf);
-  res.send(resp);
+  cigameService.getCIGameInfo(name, res);
 });
 
 // Cigame json endpoint
