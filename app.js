@@ -1,11 +1,27 @@
 // main JS file
 
+
+//3rd dependencies
+// Express MVC Framework
 var express = require('express');
 var app = express();
 
+//nconf engine for reading json configurations. Support Redis.
+var nconf = require('nconf');
+nconf.file({ file: './configuration/conf.json' });
+// Default values if config fails.
+nconf.defaults({
+        'httpPort': 8282
+});
+
+// local dependencies
+var cigameService = require('./services/cigameservice.js');
+
 //Main endpoint
-app.get('/', function(req, res){
-  res.send('hello no world');
+app.get('/:name', function(req, res){
+  var name = req.params.name;
+  var resp = cigameService.getCiGameInfo(name);
+  res.send(resp);
 });
 
 // Cigame json endpoint
@@ -17,4 +33,4 @@ app.get('/jenkins/cigame', function(req, res){
     
 });
 
-app.listen(8484);
+app.listen(nconf.get('httpPort'));

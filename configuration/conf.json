@@ -1,0 +1,5 @@
+{
+    "httpPort": 8484,
+    "jenkinsUrl": "http://jenkinsServer",
+    "sonarUrl": "http://sonarServer"
+}
