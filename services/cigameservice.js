@@ -22,8 +22,8 @@ function setLoggingEngine(logging){
 
 
 
-function getCiGameInfo(name){
-    winston.info('getCiGameInfo Method. Name: ' + name);
+function getCIGameInfo(name){
+    winston.info('getCIGameInfo Method. Name: ' + name);
     var saludo = jenkinsEA.getCIGameInfo(name);
     return saludo;
     
@@ -31,4 +31,4 @@ function getCiGameInfo(name){
 
 module.exports.setConfigEngine = setConfigEngine;
 module.exports.setLoggingEngine = setLoggingEngine;
-module.exports.getCiGameInfo = getCiGameInfo;
+module.exports.getCIGameInfo = getCIGameInfo;

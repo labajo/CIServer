@@ -29,7 +29,7 @@ cigameService.setLoggingEngine(winston);
 app.get('/:name', function(req, res){
   var name = req.params.name;
   winston.info('Main endpoind. Name: ' + name);
-  var resp = cigameService.getCiGameInfo(name, nconf);
+  var resp = cigameService.getCIGameInfo(name, nconf);
   res.send(resp);
 });
 
