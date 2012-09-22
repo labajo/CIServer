@@ -14,14 +14,21 @@ nconf.defaults({
         'httpPort': 8282
 });
 
+// winston logging engine.
+var winston = require('winston');
+
+
+
 // local dependencies
 var cigameService = require('./services/cigameservice.js');
 cigameService.setConfigEngine(nconf);
+cigameService.setLoggingEngine(winston);
 
 
 //Main endpoint
 app.get('/:name', function(req, res){
   var name = req.params.name;
+  winston.info('Main endpoind. Name: ' + name);
   var resp = cigameService.getCiGameInfo(name, nconf);
   res.send(resp);
 });
