@@ -10,7 +10,6 @@ function setConfigEngine(config){
 var winston;
 function setLoggingEngine(logging){
     winston = logging;
-    winston.info('Setted');
 }
 
 
