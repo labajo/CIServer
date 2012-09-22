@@ -34,26 +34,39 @@ app.get('/:name', function(req, res){
   if(name=='favicon.ico'){
       return;
   }
-  winston.info('Main endpoind. Name: ' + name);
+  winston.info('Main endpoint. Name: ' + name);
   cigameService.getCIGameInfo(name, res);
 });
 
 // Cigame json endpoint
 //TODO: Download the jenkins cigame web. Web Scraping and present information in json.
 app.get('/jenkins/cigame', function(req, res){
-    res.statusCode = 201;
-    res.setHeader('Location', 'http://localhost:8484');
-    res.send('hello cigame');
-    
+    winston.info('Cigame endpoint.');
+    res.statusCode = 200;
+    res.header('Content-Type', 'application/json');
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header("Content-Type", "application/json; charset=utf-8");
+    res.header("X-Atmosphere-tracking-id", "af6c0948-9c64-4e63-8de9-bfcef482ae6c");
+    cigameService.getCIGameInfo("Normal", res);
+    //res.send('{"name": "labajo", "points":"123"}');
 });
 
 
+
+
+
 //swagger documentations.
-app.get('/api/cigame.json', function(req, res){
-    fs.readFile('./doc/cigame.json', 'utf8', function (err,data) {
+app.get('/api/:filename', function(req, res){
+    var filename = req.params.filename
+    fs.readFile('./doc/' + filename, 'utf8', function (err,data) {
       if (err) {
         return console.log(err);
       }
+      res.header('Access-Control-Allow-Origin', "*");
+      res.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
+      res.header("Access-Control-Allow-Headers", "Content-Type");
+      res.header("Content-Type", "application/json; charset=utf-8");
+      res.header("X-Atmosphere-tracking-id", "af6c0948-9c64-4e63-8de9-bfcef482ae6c");
       res.send(200,data);
     });
 });

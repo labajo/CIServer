@@ -1,0 +1,11 @@
+{
+  "apiVersion": "0.2",
+  "swaggerVersion": "1.1",
+  "basePath": "http://localhost:8484/api",
+  "apis": [
+    {
+      "path": "/cigame.{format}",
+      "description": "Operations about cigame"
+    }
+  ]
+}

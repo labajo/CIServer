@@ -1,1 +1,43 @@
-{"apiVersion":"0.2","swaggerVersion":"1.1","basePath":"http://localhost:8484/jenkins","resourcePath":"/cigame","apis":[{"path":"/cigame","description":"Cigame information","operations":[{"httpMethod":"GET","summary":"Get the cigame information","notes":"Returns teh cigame information.","responseClass":"CIGameInfo","nickname":"getCIInformation","parameters":[],"errorResponses":[{"code":404,"reason":"Not found"}]}]}],"models":{"CIGameInfo":{"id":"CiGameInfo","properties":{"name":{"type":"string"},"points":{"type":"string"}}}}}
+{
+  "apiVersion": "0.2",
+  "swaggerVersion": "1.1",
+  "basePath": "http://localhost:8484/jenkins",
+  "resourcePath": "/cigame",
+  "apis": [
+    {
+      "path": "/cigame",
+      "description": "Cigame information",
+      "operations": [
+        {
+          "httpMethod": "GET",
+          "summary": "Get the cigame information",
+          "notes": "Returns the cigame information.",
+          "responseClass": "CIGameInfo",
+          "nickname": "getCIInformation",
+          "parameters": [
+            
+          ],
+          "errorResponses": [
+            {
+              "code": 404,
+              "reason": "Not found"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models": {
+    "CIGameInfo": {
+      "id": "CiGameInfo",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "points": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
