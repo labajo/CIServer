@@ -1,6 +1,17 @@
 // cigame service
 
-function getCiGameInfo(name){
-    return 'Hola ' + name;
+// nconf engine.
+var nconf;
+
+function setConfigEngine(config){
+    nconf = config;
 }
+
+
+
+function getCiGameInfo(name){
+    return 'Hola ' + name + nconf.get('jenkinsUrl');
+}
+
+module.exports.setConfigEngine = setConfigEngine;
 module.exports.getCiGameInfo = getCiGameInfo;

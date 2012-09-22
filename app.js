@@ -16,11 +16,13 @@ nconf.defaults({
 
 // local dependencies
 var cigameService = require('./services/cigameservice.js');
+cigameService.setConfigEngine(nconf);
+
 
 //Main endpoint
 app.get('/:name', function(req, res){
   var name = req.params.name;
-  var resp = cigameService.getCiGameInfo(name);
+  var resp = cigameService.getCiGameInfo(name, nconf);
   res.send(resp);
 });
 
