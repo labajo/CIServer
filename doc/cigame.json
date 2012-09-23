@@ -1,11 +1,11 @@
 {
   "apiVersion": "0.2",
   "swaggerVersion": "1.1",
-  "basePath": "http://localhost:8484/jenkins",
-  "resourcePath": "/cigame",
+  "basePath": "http://localhost:8484/",
+  "resourcePath": "/jenkins/cigame",
   "apis": [
     {
-      "path": "/cigame",
+      "path": "/jenkins/cigame",
       "description": "Cigame information",
       "operations": [
         {

@@ -52,9 +52,6 @@ app.get('/jenkins/cigame', function(req, res){
 });
 
 
-
-
-
 //swagger documentations.
 app.get('/api/:filename', function(req, res){
     var filename = req.params.filename
