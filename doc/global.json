@@ -6,6 +6,10 @@
     {
       "path": "/api/cigame.{format}",
       "description": "Operations about cigame"
+    },
+    {
+      "path": "/api/sonar.{format}",
+      "description": "Operations about cigame"
     }
   ]
 }

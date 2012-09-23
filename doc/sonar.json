@@ -1,0 +1,50 @@
+{
+  "apiVersion": "0.2",
+  "swaggerVersion": "1.1",
+  "basePath": "http://localhost:8484/",
+  "resourcePath": "/sonar",
+  "apis": [
+    {
+      "path": "/sonar/{projectname}",
+      "description": "Sonar information of a project",
+      "operations": [
+        {
+          "httpMethod": "GET",
+          "summary": "Get the sonar information of a project",
+          "notes": "Returns the sonar information. in json format.",
+          "responseClass": "CIGameInfo",
+          "nickname": "getProjectMetrics",
+          "parameters": [
+            {
+                "name": "projectname",
+                "description": "projectname in sonar platform",
+                "paramType": "path",
+                "required": true,
+                "allowMultiple": false,
+                "dataType": "string"
+            }
+          ],
+          "errorResponses": [
+            {
+              "code": 404,
+              "reason": "Not found"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models": {
+    "CIGameInfo": {
+      "id": "CiGameInfo",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "points": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

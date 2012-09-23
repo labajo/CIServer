@@ -23,10 +23,13 @@ var fs = require('fs');
 
 
 // local dependencies
-var cigameService = require('./services/cigameservice.js');
-cigameService.setConfigEngine(nconf);
-cigameService.setLoggingEngine(winston);
+var jenkinsEA = require('./extagents/jenkinsEA.js');
+jenkinsEA.setConfigEngine(nconf);
+jenkinsEA.setLoggingEngine(winston);
 
+var sonarEA = require('./extagents/sonarEA.js');
+sonarEA.setConfigEngine(nconf);
+sonarEA.setLoggingEngine(winston);
 
 //Main endpoint
 app.get('/:name', function(req, res){
@@ -35,7 +38,7 @@ app.get('/:name', function(req, res){
       return;
   }
   winston.info('Main endpoint. Name: ' + name);
-  cigameService.getCIGameInfo(name, res);
+  jenkinsEA.getCIGameInfo(name, res);
 });
 
 // Cigame json endpoint
@@ -46,10 +49,19 @@ app.get('/jenkins/cigame', function(req, res){
     res.header('Access-Control-Allow-Origin', "*");
     res.header("Content-Type", "application/json; charset=utf-8");
     res.header("X-Atmosphere-tracking-id", "af6c0948-9c64-4e63-8de9-bfcef482ae6c");
-    cigameService.getCIGameInfo("Normal", res);
+    jenkinsEA.getCIGameInfo("Normal", res);
 });
 
-
+//sonar json endpoint
+app.get('/sonar/:projectname', function(req, res){
+    var projectname = req.params.projectname;
+    winston.info('Sonar endpoint. Project: ' + projectname);
+    res.header('Content-Type', 'application/json');
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header("Content-Type", "application/json; charset=utf-8");
+    res.header("X-Atmosphere-tracking-id", "af6c0948-9c64-4e63-8de9-bfcef482ae6c");
+    sonarEA.getProjectMetrics(projectname, res);
+});
 
 
 //swagger documentations.
