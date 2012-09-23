@@ -1,5 +1,6 @@
 {
     "httpPort": 8484,
-    "jenkinsUrl": "http://ci-wallet/jenkins/cigame/",
-    "sonarUrl": "http://sonarServer"
+    "jenkinsUrl": "http://ci/jenkins/cigame/",
+    "sonarUrl": "http://ci/sonar",
+    "sonarSuffix": "&metrics=ncloc,coverage,violations_density,duplicated_lines_density,critical_violations,major_violations&format=json"
 }

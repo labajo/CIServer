@@ -9,6 +9,7 @@ function setConfigEngine(config){
     nconf = config;
 }
 
+//logging engine
 var winston;
 function setLoggingEngine(logging){
     winston = logging;

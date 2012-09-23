@@ -15,5 +15,8 @@ Develop Steps:
 2. Install express in the project. npm install express
 3. Install nconf to have json configuration files.
 4. Install an asyn logging library (winston).
-5. Create a system with three layers.(Main layer(app.js), Services, Ext Agents).
+5. Create a system with two layers.(Main layer(app.js), Ext Agents).
 6. Add scraper to download page contents and analyze it.
+7. Add header to allow swagger compatibility.
+8. Add FS dependency to read json files for swagger web.
+9. Add Restler dependency to have a rest client for sonar.

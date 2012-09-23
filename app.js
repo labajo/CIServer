@@ -39,7 +39,6 @@ app.get('/:name', function(req, res){
 });
 
 // Cigame json endpoint
-//TODO: Download the jenkins cigame web. Web Scraping and present information in json.
 app.get('/jenkins/cigame', function(req, res){
     winston.info('Cigame endpoint.');
     res.statusCode = 200;
@@ -48,8 +47,9 @@ app.get('/jenkins/cigame', function(req, res){
     res.header("Content-Type", "application/json; charset=utf-8");
     res.header("X-Atmosphere-tracking-id", "af6c0948-9c64-4e63-8de9-bfcef482ae6c");
     cigameService.getCIGameInfo("Normal", res);
-    //res.send('{"name": "labajo", "points":"123"}');
 });
+
+
 
 
 //swagger documentations.
