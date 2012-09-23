@@ -23,16 +23,15 @@ function getProjectMetrics(projectName, res){
  var completeUrl = baseUrl + '/api/resources?resource=' + projectName + sonarSuffix;
  winston.info('SonarEA getProjectMetrics Method. ProjectName: ' + projectName);
  winston.info('Get over ' + completeUrl);
- rest.get(completeUrl).on('complete', function(result) {
+ rest.get(completeUrl).on('complete', function(result, response) {
   if (result instanceof Error) {
       res.send(400,'{"error":1, "errorDetail": "Sonar connection is out."}');
-  } else {
-      //var dataReaded = JSON.parse(result.toString());
-      //if(dataReaded.err_code!=null)
-      //{
-      //    res.send(dataReaded.err_code,'{"error":2, "errorDetail": "Project not found"}');
-      //}
-      res.send(200,result);
+  } else { 
+      if (response.statusCode == 404) {
+        res.send(404,'{"error":2, "errorDetail": "Project not found"}');
+      }else{
+          res.send(200,result);
+      }
   }
 });
 }
