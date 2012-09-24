@@ -9,7 +9,8 @@
     "winston": "~0.6.2",
     "scraper": "0.0.9",
     "fs": "0.0.0",
-    "restler": "~2.0.1"
+    "restler": "~2.0.1",
+    "xml2js": "~0.2.0"
   },
   "devDependencies": {}
 }

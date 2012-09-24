@@ -38,8 +38,20 @@ app.get('/:name', function(req, res){
       return;
   }
   winston.info('Main endpoint. Name: ' + name);
-  jenkinsEA.getCIGameInfo(name, res);
+  //jenkinsEA.getCIGameInfo(name, res);
 });
+
+// jenkins projects json endpoint
+app.get('/jenkins/projects', function(req, res){
+    winston.info('Projects endpoint.');
+    res.statusCode = 200;
+    res.header('Content-Type', 'application/json');
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header("Content-Type", "application/json; charset=utf-8");
+    res.header("X-Atmosphere-tracking-id", "af6c0948-9c64-4e63-8de9-bfcef482ae6c");
+    jenkinsEA.getJenkinsProjects(res);
+});
+
 
 // Cigame json endpoint
 app.get('/jenkins/cigame', function(req, res){
@@ -49,7 +61,21 @@ app.get('/jenkins/cigame', function(req, res){
     res.header('Access-Control-Allow-Origin', "*");
     res.header("Content-Type", "application/json; charset=utf-8");
     res.header("X-Atmosphere-tracking-id", "af6c0948-9c64-4e63-8de9-bfcef482ae6c");
-    jenkinsEA.getCIGameInfo("Normal", res);
+    jenkinsEA.getCIGameInfo( res);
+});
+
+//Cigame user endpoint
+app.get('/jenkins/cigame/:name', function(req, res){
+  var name = req.params.name;
+  res.header('Content-Type', 'application/json');
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header("Content-Type", "application/json; charset=utf-8");
+  res.header("X-Atmosphere-tracking-id", "af6c0948-9c64-4e63-8de9-bfcef482ae6c");
+  if(name=='favicon.ico'){
+      return;
+  }
+  winston.info('Main endpoint. Name: ' + name);
+  jenkinsEA.getCIGamePoints(name, res);
 });
 
 //sonar json endpoint

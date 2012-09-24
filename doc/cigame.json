@@ -25,6 +25,35 @@
           ]
         }
       ]
+    },
+    {
+      "path": "/jenkins/cigame/{user}",
+      "description": "Cigame points of an user.",
+      "operations": [
+        {
+          "httpMethod": "GET",
+          "summary": "Get the cigame points of a selected user.",
+          "notes": "Returns the game points in String format.",
+          "responseClass": "CIGameInfo",
+          "nickname": "getCIGamePoints",
+          "parameters": [
+            {
+                "name": "user",
+                "description": "CI game player name.",
+                "paramType": "path",
+                "required": true,
+                "allowMultiple": false,
+                "dataType": "string"
+            }
+          ],
+          "errorResponses": [
+            {
+              "code": 404,
+              "reason": "Not found"
+            }
+          ]
+        }
+      ]
     }
   ],
   "models": {

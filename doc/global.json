@@ -4,6 +4,10 @@
   "basePath": "http://localhost:8484/",
   "apis": [
     {
+      "path": "/api/projects.{format}",
+      "description": "Operations about cigame"
+    },
+    {
       "path": "/api/cigame.{format}",
       "description": "Operations about cigame"
     },

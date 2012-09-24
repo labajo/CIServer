@@ -1,0 +1,43 @@
+{
+  "apiVersion": "0.2",
+  "swaggerVersion": "1.1",
+  "basePath": "http://localhost:8484/",
+  "resourcePath": "/jenkins/projects",
+  "apis": [
+    {
+      "path": "/jenkins/projects",
+      "description": "Jenkins project information",
+      "operations": [
+        {
+          "httpMethod": "GET",
+          "summary": "Get the jenkins projects information",
+          "notes": "Returns the jenkins project array.",
+          "responseClass": "CIGameInfo",
+          "nickname": "getJenkinsProjects",
+          "parameters": [
+            
+          ],
+          "errorResponses": [
+            {
+              "code": 404,
+              "reason": "Not found"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models": {
+    "CIGameInfo": {
+      "id": "CiGameInfo",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "points": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

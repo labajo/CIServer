@@ -1,6 +1,11 @@
 // jenkins external Agent.
 
+// 3rd party libraries
 var scraper = require('scraper');
+var rest = require('restler');
+var xml2js = require('xml2js');
+var parser = new xml2js.Parser();
+
 
 // nconf engine.
 var nconf;
@@ -15,9 +20,39 @@ function setLoggingEngine(logging){
     winston = logging;
 }
 
-function getCIGameInfo(name, res){
-    winston.info('EA getCiGameInfo Method. Name: ' + name);
-    scraper(nconf.get('jenkinsUrl'), function(err, $) {
+function getJenkinsProjects(res){
+    rest.get(nconf.get('jenkinsUrl') + 'cc.xml').on('complete', function(result, response) {
+      if (result instanceof Error) {
+          res.send(400,'{"error":1, "errorDetail": "Jenkins connection is out."}');
+      } else { 
+          if (response.statusCode == 404) {
+            res.send(404,'{"error":2, "errorDetail": "Jenkins cc.xml not found"}');
+          }else{
+              parser.parseString(result, function (err, data) {
+                  
+                  var projectArray = data.Projects.Project;
+                  var resultArray = new Array();
+                  for(i = 0; i < projectArray.length; i++){
+                      var project = new Project();
+                      project.name = projectArray[i].$.name.toString();
+                      project.lastBuildTime = projectArray[i].$.lastBuildTime.toString();
+                      project.lastBuildStatus = projectArray[i].$.lastBuildStatus.toString();
+                      project.activity = projectArray[i].$.activity.toString();
+                      resultArray[i] = project;
+                  }
+                  winston.info(JSON.stringify(resultArray));
+                  res.send(200,JSON.stringify(resultArray));
+              });
+          }
+      }
+     });
+}
+
+function Project(){}
+
+function getCIGameInfo( res){
+    winston.info('EA getCiGameInfo Method.');
+    scraper(nconf.get('jenkinsUrl') + 'cigame/', function(err, $) {
         if (err) {  
             winston.info('Jenkins connection is out.');
             res.send(400,'{"error":1, "errorDetail": "Jenkins connection is out."}');
@@ -28,7 +63,33 @@ function getCIGameInfo(name, res){
             res.send(result);
         }
     });
-    
+}
+
+
+function getCIGamePoints(playerName, res){
+    winston.info('EA getCiGameInfo Method. Name: ' + playerName);
+    scraper(nconf.get('jenkinsUrl') + 'cigame/', function(err, $) {
+        if (err) {  
+            winston.info('Jenkins connection is out.');
+            res.send(400,'{"error":1, "errorDetail": "Jenkins connection is out."}');
+        }else{
+            //var result = "<html><head><title>Cigame</title></head><body><table>" + $('.pane.sortable').html() + "</table></body></html>";
+            var domContent = $('.pane.sortable');
+            var result =JSON.parse(generateJsonFromHTML(domContent, $));
+            var players = result.cigamePlayers;
+            var points = '{"points": "';
+            var pResult = '0';
+            for(i = 0; i < players.length; i++){
+                if(players[i].name.toString().localeCompare(playerName.toString())==0){
+                    winston.info(players[i].points);
+                    pResult = players[i].points;
+                    break;
+                }
+            }
+            points = points + pResult + '"}';
+            res.send(200, points);
+        }
+    });
 }
 
 function generateJsonFromHTML(domContent, $){
@@ -64,3 +125,5 @@ function generateJsonFromHTML(domContent, $){
 module.exports.setConfigEngine = setConfigEngine;
 module.exports.setLoggingEngine = setLoggingEngine;
 module.exports.getCIGameInfo = getCIGameInfo;
+module.exports.getCIGamePoints = getCIGamePoints;
+module.exports.getJenkinsProjects = getJenkinsProjects;
