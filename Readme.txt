@@ -20,3 +20,4 @@ Develop Steps:
 7. Add header to allow swagger compatibility.
 8. Add FS dependency to read json files for swagger web.
 9. Add Restler dependency to have a rest client for sonar.
+10.Add Xml2Js dependency to convert xml into json.
