@@ -43,13 +43,26 @@ app.get('/:name', function(req, res){
 
 // jenkins projects json endpoint
 app.get('/jenkins/projects', function(req, res){
+    var allowedProjects = req.query["allowedProjects"];
+    winston.info('Projects endpoint. AllowedProjects: ' + allowedProjects);
+    res.statusCode = 200;
+    res.header('Content-Type', 'application/json');
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header("Content-Type", "application/json; charset=utf-8");
+    res.header("X-Atmosphere-tracking-id", "af6c0948-9c64-4e63-8de9-bfcef482ae6c");
+    jenkinsEA.getJenkinsProjects(allowedProjects, res);
+});
+
+// jenkins projects json endpoint
+app.get('/jenkins/projects/:name', function(req, res){
+    var name = req.params.name;
     winston.info('Projects endpoint.');
     res.statusCode = 200;
     res.header('Content-Type', 'application/json');
     res.header('Access-Control-Allow-Origin', "*");
     res.header("Content-Type", "application/json; charset=utf-8");
     res.header("X-Atmosphere-tracking-id", "af6c0948-9c64-4e63-8de9-bfcef482ae6c");
-    jenkinsEA.getJenkinsProjects(res);
+    jenkinsEA.getJenkinsProject(name,res);
 });
 
 

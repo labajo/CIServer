@@ -6,7 +6,7 @@
   "apis": [
     {
       "path": "/jenkins/projects",
-      "description": "Jenkins project information",
+      "description": "Jenkins projects information",
       "operations": [
         {
           "httpMethod": "GET",
@@ -15,7 +15,43 @@
           "responseClass": "CIGameInfo",
           "nickname": "getJenkinsProjects",
           "parameters": [
-            
+            {
+                "name": "allowedProjects",
+                "description": "Jenkins allowedProjects names. White List.",
+                "paramType": "query",
+                "required": false,
+                "allowMultiple": false,
+                "dataType": "string"
+            }
+          ],
+          "errorResponses": [
+            {
+              "code": 404,
+              "reason": "Not found"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/jenkins/projects/{name}",
+      "description": "Jenkins project information",
+      "operations": [
+        {
+          "httpMethod": "GET",
+          "summary": "Get a jenkins project information",
+          "notes": "Returns a jenkins project element.",
+          "responseClass": "CIGameInfo",
+          "nickname": "getJenkinsProject",
+          "parameters": [
+            {
+                "name": "name",
+                "description": "Jenkins project name.",
+                "paramType": "path",
+                "required": true,
+                "allowMultiple": false,
+                "dataType": "string"
+            }
           ],
           "errorResponses": [
             {

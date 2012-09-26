@@ -20,7 +20,7 @@ function setLoggingEngine(logging){
     winston = logging;
 }
 
-function getJenkinsProjects(res){
+function getJenkinsProjects(allowedProjects, res){
     rest.get(nconf.get('jenkinsUrl') + 'cc.xml').on('complete', function(result, response) {
       if (result instanceof Error) {
           res.send(400,'{"error":1, "errorDetail": "Jenkins connection is out."}');
@@ -29,19 +29,72 @@ function getJenkinsProjects(res){
             res.send(404,'{"error":2, "errorDetail": "Jenkins cc.xml not found"}');
           }else{
               parser.parseString(result, function (err, data) {
+                  var aProjects;
+                  try{
+                      aProjects = allowedProjects.toString().split(',');
+                      winston.info("aProjects: " + JSON.stringify(aProjects));
+                  } catch(err){
+                      aProjects = new Array();
+                      winston.info("aProjects: " + JSON.stringify(aProjects));
+                  }
                   
                   var projectArray = data.Projects.Project;
                   var resultArray = new Array();
                   for(i = 0; i < projectArray.length; i++){
-                      var project = new Project();
-                      project.name = projectArray[i].$.name.toString();
-                      project.lastBuildTime = projectArray[i].$.lastBuildTime.toString();
-                      project.lastBuildStatus = projectArray[i].$.lastBuildStatus.toString();
-                      project.activity = projectArray[i].$.activity.toString();
-                      resultArray[i] = project;
+                      if(aProjects.length != 0){
+                          for(j=0;j<aProjects.length ; j++){
+                              var pName = projectArray[i].$.name.toString();
+                              if(aProjects[j]==pName){
+                                  var project = new Project();
+                                  project.name = pName;
+                                  project.lastBuildTime = projectArray[i].$.lastBuildTime.toString();
+                                  project.lastBuildStatus = projectArray[i].$.lastBuildStatus.toString();
+                                  project.activity = projectArray[i].$.activity.toString();
+                                  resultArray[resultArray.length] = project;
+                              }
+                          }
+                      }
+                      else{
+                          var pName = projectArray[i].$.name.toString();
+                          var project = new Project();
+                          project.name = pName;
+                          project.lastBuildTime = projectArray[i].$.lastBuildTime.toString();
+                          project.lastBuildStatus = projectArray[i].$.lastBuildStatus.toString();
+                          project.activity = projectArray[i].$.activity.toString();
+                          resultArray[resultArray.length] = project;
+                      }
                   }
                   winston.info(JSON.stringify(resultArray));
                   res.send(200,JSON.stringify(resultArray));
+              });
+          }
+      }
+     });
+}
+
+function getJenkinsProject(name, res){
+    rest.get(nconf.get('jenkinsUrl') + 'cc.xml').on('complete', function(result, response) {
+      if (result instanceof Error) {
+          res.send(400,'{"error":1, "errorDetail": "Jenkins connection is out."}');
+      } else { 
+          if (response.statusCode == 404) {
+            res.send(404,'{"error":2, "errorDetail": "Jenkins cc.xml not found"}');
+          }else{
+              parser.parseString(result, function (err, data) {
+                  var projectArray = data.Projects.Project;
+                  var project = new Project();
+                  for(i = 0; i < projectArray.length; i++){
+                      var projectName = projectArray[i].$.name.toString();
+                      if(projectName == name){
+                          project.name = projectName;
+                          project.lastBuildTime = projectArray[i].$.lastBuildTime.toString();
+                          project.lastBuildStatus = projectArray[i].$.lastBuildStatus.toString();
+                          project.activity = projectArray[i].$.activity.toString();
+                          break;
+                      }
+                  }
+                  winston.info(JSON.stringify(project));
+                  res.send(200,JSON.stringify(project));
               });
           }
       }
@@ -127,3 +180,4 @@ module.exports.setLoggingEngine = setLoggingEngine;
 module.exports.getCIGameInfo = getCIGameInfo;
 module.exports.getCIGamePoints = getCIGamePoints;
 module.exports.getJenkinsProjects = getJenkinsProjects;
+module.exports.getJenkinsProject = getJenkinsProject;
