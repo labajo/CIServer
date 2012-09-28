@@ -4,7 +4,9 @@
 var scraper = require('scraper');
 var rest = require('restler');
 var xml2js = require('xml2js');
+var FeedParser = require('feedparser');
 var parser = new xml2js.Parser();
+var rssParser = new FeedParser();
 
 
 // nconf engine.
@@ -101,6 +103,25 @@ function getJenkinsProject(name, res){
      });
 }
 
+function getJenkinsHistoryProject(name, res){
+    winston.info('EA getJenkinsHistoryProject Method. Name: ' +  name);
+    rssParser.parseUrl('http:///jenkins/job/Wallet-NoNFC-Platform/rssAll', function(err, meta, articles){
+        if(err){
+            winston.info('Jenkins connection is out.');
+            res.send(400,'{"error":1, "errorDetail": "Jenkins connection is out."}');
+        }
+        
+        var articlesSubArray = new Array();
+        for(i = 0 ; i <7 ; i++){
+            articlesSubArray[i] = articles[i];
+        }
+        
+        res.send(200, JSON.stringify(articlesSubArray));
+    }); 
+    
+    //res.send(200, '{"asdasd":"asdd"}');
+}
+
 function Project(){}
 
 function getCIGameInfo( res){
@@ -181,3 +202,4 @@ module.exports.getCIGameInfo = getCIGameInfo;
 module.exports.getCIGamePoints = getCIGamePoints;
 module.exports.getJenkinsProjects = getJenkinsProjects;
 module.exports.getJenkinsProject = getJenkinsProject;
+module.exports.getJenkinsHistoryProject = getJenkinsHistoryProject;

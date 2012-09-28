@@ -21,3 +21,4 @@ Develop Steps:
 8. Add FS dependency to read json files for swagger web.
 9. Add Restler dependency to have a rest client for sonar.
 10.Add Xml2Js dependency to convert xml into json.
+11.Add FeedPareser dependency to read rss feed from jenkins.
