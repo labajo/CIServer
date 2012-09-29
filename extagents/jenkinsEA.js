@@ -105,22 +105,31 @@ function getJenkinsProject(name, res){
 
 function getJenkinsHistoryProject(name, res){
     winston.info('EA getJenkinsHistoryProject Method. Name: ' +  name);
-    rssParser.parseUrl('http:///jenkins/job/Wallet-NoNFC-Platform/rssAll', function(err, meta, articles){
+    rssParser.parseUrl(nconf.get('jenkinsUrl') +'/job/'+name +'/rssAll', function(err, meta, articles){
         if(err){
             winston.info('Jenkins connection is out.');
             res.send(400,'{"error":1, "errorDetail": "Jenkins connection is out."}');
         }
-        
         var articlesSubArray = new Array();
         for(i = 0 ; i <7 ; i++){
-            articlesSubArray[i] = articles[i];
+            var projectBuiltElement = new ProjectBuilt();
+            if(articles[i].title.indexOf('estable')!=-1){
+                projectBuiltElement.status = 'ok';
+            }else if(articles[i].title.indexOf('normal')!=-1){
+                projectBuiltElement.status = "returnToOk";
+            }else if(articles[i].title.indexOf('fallido')!=-1){
+                projectBuiltElement.status = "failed";
+            }
+            projectBuiltElement.date = articles[i].pubdate;
+            articlesSubArray[i] = projectBuiltElement;
         }
-        
         res.send(200, JSON.stringify(articlesSubArray));
     }); 
     
     //res.send(200, '{"asdasd":"asdd"}');
 }
+
+function ProjectBuilt(){}
 
 function Project(){}
 

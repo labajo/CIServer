@@ -61,6 +61,35 @@
           ]
         }
       ]
+    },
+    {
+      "path": "/jenkins/projects/{name}/history",
+      "description": "Jenkins project history information",
+      "operations": [
+        {
+          "httpMethod": "GET",
+          "summary": "Get a jenkins project history information",
+          "notes": "Returns a history element with status and date.",
+          "responseClass": "CIGameInfo",
+          "nickname": "getJenkinsHistoryProject",
+          "parameters": [
+            {
+                "name": "name",
+                "description": "Jenkins project name.",
+                "paramType": "path",
+                "required": true,
+                "allowMultiple": false,
+                "dataType": "string"
+            }
+          ],
+          "errorResponses": [
+            {
+              "code": 404,
+              "reason": "Not found"
+            }
+          ]
+        }
+      ]
     }
   ],
   "models": {
