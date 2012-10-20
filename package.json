@@ -11,7 +11,8 @@
     "fs": "0.0.0",
     "restler": "~2.0.1",
     "xml2js": "~0.2.0",
-    "feedparser": "~0.10.0-beta"
+    "feedparser": "~0.10.0-beta",
+    "mongoose": "~3.3.1"
   },
   "devDependencies": {}
 }

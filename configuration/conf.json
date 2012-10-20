@@ -1,6 +1,9 @@
 {
     "httpPort": 8484,
-    "jenkinsUrl": "http://ci/jenkins/cigame/",
-    "sonarUrl": "http://ci/sonar",
-    "sonarSuffix": "&metrics=ncloc,coverage,violations_density,duplicated_lines_density,critical_violations,major_violations&format=json"
+    "jenkinsUrl": "http://localhost/jenkins/",
+    "sonarUrl": "http://localhost/sonar",
+    "sonarSuffix": "&metrics=ncloc,coverage,violations_density,duplicated_lines_density,critical_violations,major_violations&format=json",
+    "mongoServer": "localhost",
+    "mongoDatabase":"CIServer",
+    "mongoActive":0
 }

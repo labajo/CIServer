@@ -8,7 +8,6 @@ var FeedParser = require('feedparser');
 var parser = new xml2js.Parser();
 var rssParser = new FeedParser();
 
-
 // nconf engine.
 var nconf;
 
